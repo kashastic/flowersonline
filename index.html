@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Make a Bouquet ✿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Nunito:wght@300;400;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css?v=3"/>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     SVG LIBRARY — all gradients + flower symbols
+══════════════════════════════════════════════════════ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+<defs>
+
+  <!-- ── Shared filters ── -->
+  <filter id="f-shadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#5a1a2a" flood-opacity="0.25"/>
+  </filter>
+  <filter id="f-shadow-sm" x="-20%" y="-20%" width="140%" height="140%">
+    <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#5a1a2a" flood-opacity="0.18"/>
+  </filter>
+  <filter id="f-glow">
+    <feGaussianBlur stdDeviation="3" result="blur"/>
+    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+  </filter>
+
+  <!-- ── Stem gradient (shared) ── -->
+  <linearGradient id="g-stem" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%"   stop-color="#2a5820"/>
+    <stop offset="40%"  stop-color="#5aaa44"/>
+    <stop offset="100%" stop-color="#224a18"/>
+  </linearGradient>
+  <linearGradient id="g-leaf" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%"   stop-color="#6aba54"/>
+    <stop offset="100%" stop-color="#2a5820"/>
+  </linearGradient>
+
+  <!-- ────────── ROSE gradients ────────── -->
+  <radialGradient id="g-rose-outer" cx="32%" cy="28%" r="72%">
+    <stop offset="0%"   stop-color="#ffb3c8"/>
+    <stop offset="45%"  stop-color="#d94060"/>
+    <stop offset="100%" stop-color="#7a0c28"/>
+  </radialGradient>
+  <radialGradient id="g-rose-mid" cx="35%" cy="30%" r="68%">
+    <stop offset="0%"   stop-color="#ffccd8"/>
+    <stop offset="50%"  stop-color="#e05878"/>
+    <stop offset="100%" stop-color="#9a1a38"/>
+  </radialGradient>
+  <radialGradient id="g-rose-inner" cx="38%" cy="35%" r="64%">
+    <stop offset="0%"   stop-color="#ffe8ee"/>
+    <stop offset="55%"  stop-color="#f080a0"/>
+    <stop offset="100%" stop-color="#c03060"/>
+  </radialGradient>
+  <radialGradient id="g-rose-center" cx="40%" cy="35%" r="60%">
+    <stop offset="0%"   stop-color="#fff5f8"/>
+    <stop offset="70%"  stop-color="#f8b8cc"/>
+    <stop offset="100%" stop-color="#e06080"/>
+  </radialGradient>
+
+  <!-- ────────── TULIP gradients ────────── -->
+  <radialGradient id="g-tulip-body" cx="30%" cy="20%" r="80%">
+    <stop offset="0%"   stop-color="#ff9dc8"/>
+    <stop offset="45%"  stop-color="#e0208a"/>
+    <stop offset="100%" stop-color="#7a0050"/>
+  </radialGradient>
+  <radialGradient id="g-tulip-inner" cx="50%" cy="60%" r="80%">
+    <stop offset="0%"   stop-color="#ffd0e8"/>
+    <stop offset="100%" stop-color="#c01870"/>
+  </radialGradient>
+  <radialGradient id="g-tulip-side" cx="20%" cy="30%" r="80%">
+    <stop offset="0%"   stop-color="#f070b0"/>
+    <stop offset="100%" stop-color="#600040"/>
+  </radialGradient>
+
+  <!-- ────────── SUNFLOWER gradients ────────── -->
+  <radialGradient id="g-sun-petal" cx="50%" cy="80%" r="90%">
+    <stop offset="0%"   stop-color="#ffe066"/>
+    <stop offset="60%"  stop-color="#f9a800"/>
+    <stop offset="100%" stop-color="#c07000"/>
+  </radialGradient>
+  <radialGradient id="g-sun-center" cx="32%" cy="28%" r="72%">
+    <stop offset="0%"   stop-color="#8b5a2b"/>
+    <stop offset="50%"  stop-color="#4a2a0e"/>
+    <stop offset="100%" stop-color="#2a1006"/>
+  </radialGradient>
+  <radialGradient id="g-sun-center-hi" cx="30%" cy="28%" r="50%">
+    <stop offset="0%"   stop-color="#a07040" stop-opacity="0.6"/>
+    <stop offset="100%" stop-color="#a07040" stop-opacity="0"/>
+  </radialGradient>
+
+  <!-- ────────── DAISY gradients ────────── -->
+  <radialGradient id="g-daisy-petal" cx="50%" cy="85%" r="85%">
+    <stop offset="0%"   stop-color="#fffef5"/>
+    <stop offset="40%"  stop-color="#f8f0d8"/>
+    <stop offset="100%" stop-color="#d8c8a0"/>
+  </radialGradient>
+  <radialGradient id="g-daisy-center" cx="35%" cy="30%" r="68%">
+    <stop offset="0%"   stop-color="#ffe866"/>
+    <stop offset="55%"  stop-color="#f0b420"/>
+    <stop offset="100%" stop-color="#a07010"/>
+  </radialGradient>
+
+  <!-- ────────── LILY gradients ────────── -->
+  <radialGradient id="g-lily-petal" cx="50%" cy="90%" r="100%">
+    <stop offset="0%"   stop-color="#fff0e8"/>
+    <stop offset="35%"  stop-color="#f4a0b8"/>
+    <stop offset="100%" stop-color="#c84080"/>
+  </radialGradient>
+  <radialGradient id="g-lily-petal2" cx="50%" cy="90%" r="100%">
+    <stop offset="0%"   stop-color="#fff0f0"/>
+    <stop offset="40%"  stop-color="#f8b0b0"/>
+    <stop offset="100%" stop-color="#d04060"/>
+  </radialGradient>
+  <radialGradient id="g-lily-center" cx="40%" cy="35%" r="65%">
+    <stop offset="0%"   stop-color="#fffde8"/>
+    <stop offset="100%" stop-color="#d4c060"/>
+  </radialGradient>
+
+  <!-- ────────── CHERRY BLOSSOM gradients ────────── -->
+  <radialGradient id="g-cherry-petal" cx="30%" cy="25%" r="75%">
+    <stop offset="0%"   stop-color="#fff5f8"/>
+    <stop offset="50%"  stop-color="#ffc8d8"/>
+    <stop offset="100%" stop-color="#d88098"/>
+  </radialGradient>
+  <radialGradient id="g-cherry-center" cx="40%" cy="35%" r="65%">
+    <stop offset="0%"   stop-color="#fff8d0"/>
+    <stop offset="100%" stop-color="#f0d060"/>
+  </radialGradient>
+
+  <!-- ────────── LAVENDER gradients ────────── -->
+  <radialGradient id="g-lav-floret" cx="30%" cy="25%" r="75%">
+    <stop offset="0%"   stop-color="#e8c0f8"/>
+    <stop offset="55%"  stop-color="#9858c8"/>
+    <stop offset="100%" stop-color="#4a1878"/>
+  </radialGradient>
+  <radialGradient id="g-lav-floret2" cx="30%" cy="25%" r="75%">
+    <stop offset="0%"   stop-color="#d4a8f0"/>
+    <stop offset="55%"  stop-color="#7840b0"/>
+    <stop offset="100%" stop-color="#380e60"/>
+  </radialGradient>
+  <linearGradient id="g-lav-stem" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%"   stop-color="#2a5820"/>
+    <stop offset="50%"  stop-color="#5aaa44"/>
+    <stop offset="100%" stop-color="#224a18"/>
+  </linearGradient>
+
+  <!-- ────────── PEONY gradients ────────── -->
+  <radialGradient id="g-peony-outer" cx="30%" cy="25%" r="78%">
+    <stop offset="0%"   stop-color="#ffb8d0"/>
+    <stop offset="50%"  stop-color="#e84888"/>
+    <stop offset="100%" stop-color="#7a1048"/>
+  </radialGradient>
+  <radialGradient id="g-peony-mid" cx="32%" cy="28%" r="72%">
+    <stop offset="0%"   stop-color="#ffd0e0"/>
+    <stop offset="55%"  stop-color="#f06898"/>
+    <stop offset="100%" stop-color="#a02060"/>
+  </radialGradient>
+  <radialGradient id="g-peony-inner" cx="35%" cy="30%" r="68%">
+    <stop offset="0%"   stop-color="#fff0f5"/>
+    <stop offset="60%"  stop-color="#f898b8"/>
+    <stop offset="100%" stop-color="#c84878"/>
+  </radialGradient>
+  <radialGradient id="g-peony-center" cx="38%" cy="32%" r="60%">
+    <stop offset="0%"   stop-color="#fff8fa"/>
+    <stop offset="100%" stop-color="#f0c0d0"/>
+  </radialGradient>
+
+  <!-- ────────── Wrap / paper gradients ────────── -->
+  <linearGradient id="g-wrap" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%"   stop-color="#1e4a2e"/>
+    <stop offset="12%"  stop-color="#3a7a50"/>
+    <stop offset="25%"  stop-color="#2a6040"/>
+    <stop offset="38%"  stop-color="#4a8a60"/>
+    <stop offset="50%"  stop-color="#3a7a50"/>
+    <stop offset="62%"  stop-color="#2a6040"/>
+    <stop offset="75%"  stop-color="#4a8a60"/>
+    <stop offset="88%"  stop-color="#3a7a50"/>
+    <stop offset="100%" stop-color="#1e4a2e"/>
+  </linearGradient>
+  <linearGradient id="g-ribbon" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%"   stop-color="#e8c870"/>
+    <stop offset="50%"  stop-color="#c09040"/>
+    <stop offset="100%" stop-color="#a07020"/>
+  </linearGradient>
+
+  <!-- ══════════════════ FLOWER SYMBOLS ══════════════════ -->
+
+  <!-- 🌹 ROSE -->
+  <symbol id="svg-rose" viewBox="0 0 80 100" overflow="visible">
+    <!-- Stem -->
+    <line x1="40" y1="75" x2="40" y2="100" stroke="url(#g-stem)" stroke-width="4" stroke-linecap="round"/>
+    <!-- Leaves -->
+    <ellipse cx="30" cy="90" rx="12" ry="5.5" fill="url(#g-leaf)" transform="rotate(-35 30 90)"/>
+    <ellipse cx="50" cy="84" rx="11" ry="5" fill="url(#g-leaf)" transform="rotate(30 50 84)" opacity="0.9"/>
+    <!-- Outer petals -->
+    <g filter="url(#f-shadow)">
+      <ellipse cx="40" cy="58" rx="32" ry="22" fill="url(#g-rose-outer)"/>
+      <ellipse cx="22" cy="52" rx="18" ry="22" fill="url(#g-rose-outer)" transform="rotate(-30 22 52)"/>
+      <ellipse cx="58" cy="52" rx="18" ry="22" fill="url(#g-rose-outer)" transform="rotate(30 58 52)"/>
+    </g>
+    <!-- Mid petals -->
+    <ellipse cx="40" cy="50" rx="26" ry="20" fill="url(#g-rose-mid)"/>
+    <ellipse cx="26" cy="44" rx="18" ry="18" fill="url(#g-rose-mid)" transform="rotate(-20 26 44)"/>
+    <ellipse cx="54" cy="44" rx="18" ry="18" fill="url(#g-rose-mid)" transform="rotate(20 54 44)"/>
+    <!-- Inner petals -->
+    <ellipse cx="40" cy="42" rx="19" ry="16" fill="url(#g-rose-inner)"/>
+    <ellipse cx="32" cy="38" rx="14" ry="14" fill="url(#g-rose-inner)" transform="rotate(-15 32 38)"/>
+    <ellipse cx="48" cy="38" rx="14" ry="14" fill="url(#g-rose-inner)" transform="rotate(15 48 38)"/>
+    <!-- Core petals -->
+    <ellipse cx="40" cy="35" rx="13" ry="12" fill="url(#g-rose-center)"/>
+    <ellipse cx="35" cy="32" rx="9" ry="10" fill="url(#g-rose-center)" transform="rotate(-10 35 32)"/>
+    <ellipse cx="45" cy="32" rx="9" ry="10" fill="url(#g-rose-center)" transform="rotate(10 45 32)"/>
+    <!-- Center -->
+    <circle cx="40" cy="31" r="7" fill="#fff5f8"/>
+    <circle cx="40" cy="30" r="4.5" fill="#ffe8f0"/>
+    <!-- Specular highlight -->
+    <ellipse cx="36" cy="27" rx="3.5" ry="2.5" fill="white" opacity="0.65"/>
+    <ellipse cx="37" cy="28" rx="2" ry="1.5" fill="white" opacity="0.8"/>
+  </symbol>
+
+  <!-- 🌷 TULIP -->
+  <symbol id="svg-tulip" viewBox="0 0 80 100" overflow="visible">
+    <!-- Stem -->
+    <line x1="40" y1="72" x2="40" y2="100" stroke="url(#g-stem)" stroke-width="4" stroke-linecap="round"/>
+    <!-- Leaf -->
+    <path d="M40 86 Q26 76 24 64" stroke="url(#g-leaf)" stroke-width="10" stroke-linecap="round" fill="none"/>
+    <ellipse cx="32" cy="86" rx="14" ry="6" fill="url(#g-leaf)" transform="rotate(-25 32 86)"/>
+    <!-- Back petals (darker) -->
+    <g filter="url(#f-shadow)">
+      <path d="M40 72 Q20 62 18 44 Q18 24 40 20 Q62 24 62 44 Q62 62 40 72Z" fill="url(#g-tulip-side)"/>
+    </g>
+    <!-- Side petal left -->
+    <path d="M40 72 Q20 60 22 44 Q24 28 40 24 Z" fill="url(#g-tulip-body)" opacity="0.9"/>
+    <!-- Side petal right -->
+    <path d="M40 72 Q60 60 58 44 Q56 28 40 24 Z" fill="url(#g-tulip-side)" opacity="0.9"/>
+    <!-- Front petal center -->
+    <path d="M40 72 Q28 62 28 46 Q30 30 40 24 Q50 30 52 46 Q52 62 40 72Z" fill="url(#g-tulip-body)"/>
+    <!-- Inner light (opening) -->
+    <path d="M40 68 Q32 58 33 46 Q35 34 40 28 Q45 34 47 46 Q48 58 40 68Z" fill="url(#g-tulip-inner)" opacity="0.7"/>
+    <!-- Petal tips (inner) -->
+    <ellipse cx="40" cy="22" rx="6" ry="8" fill="url(#g-tulip-body)" transform="rotate(0 40 22)"/>
+    <ellipse cx="31" cy="24" rx="5" ry="8" fill="url(#g-tulip-body)" transform="rotate(-15 31 24)"/>
+    <ellipse cx="49" cy="24" rx="5" ry="8" fill="url(#g-tulip-side)" transform="rotate(15 49 24)"/>
+    <!-- Specular -->
+    <ellipse cx="33" cy="35" rx="4" ry="7" fill="white" opacity="0.2" transform="rotate(-5 33 35)"/>
+    <ellipse cx="34" cy="34" rx="2" ry="4" fill="white" opacity="0.3"/>
+  </symbol>
+
+  <!-- 🌻 SUNFLOWER -->
+  <symbol id="svg-sunflower" viewBox="0 0 80 100" overflow="visible">
+    <!-- Stem -->
+    <line x1="40" y1="72" x2="40" y2="100" stroke="url(#g-stem)" stroke-width="4" stroke-linecap="round"/>
+    <!-- Leaf -->
+    <ellipse cx="28" cy="86" rx="13" ry="5.5" fill="url(#g-leaf)" transform="rotate(-25 28 86)"/>
+    <!-- Petals (back layer) -->
+    <g filter="url(#f-shadow)" opacity="0.85">
+      <ellipse cx="40" cy="22" rx="8"  ry="17" fill="url(#g-sun-petal)" transform="rotate(0   40 44)"/>
+      <ellipse cx="40" cy="22" rx="8"  ry="17" fill="url(#g-sun-petal)" transform="rotate(45  40 44)"/>
+      <ellipse cx="40" cy="22" rx="8"  ry="17" fill="url(#g-sun-petal)" transform="rotate(90  40 44)"/>
+      <ellipse cx="40" cy="22" rx="8"  ry="17" fill="url(#g-sun-petal)" transform="rotate(135 40 44)"/>
+    </g>
+    <!-- Petals (front layer) -->
+    <ellipse cx="40" cy="22" rx="7.5" ry="16" fill="url(#g-sun-petal)" transform="rotate(22.5 40 44)"/>
+    <ellipse cx="40" cy="22" rx="7.5" ry="16" fill="url(#g-sun-petal)" transform="rotate(67.5 40 44)"/>
+    <ellipse cx="40" cy="22" rx="7.5" ry="16" fill="url(#g-sun-petal)" transform="rotate(112.5 40 44)"/>
+    <ellipse cx="40" cy="22" rx="7.5" ry="16" fill="url(#g-sun-petal)" transform="rotate(157.5 40 44)"/>
+    <!-- Center dome -->
+    <circle cx="40" cy="44" r="17" fill="url(#g-sun-center)" filter="url(#f-shadow-sm)"/>
+    <!-- Center highlight -->
+    <circle cx="40" cy="44" r="17" fill="url(#g-sun-center-hi)"/>
+    <!-- Seed dots -->
+    <circle cx="40" cy="38" r="1.6" fill="#6a3a18"/>
+    <circle cx="35" cy="40" r="1.5" fill="#6a3a18"/>
+    <circle cx="45" cy="40" r="1.5" fill="#6a3a18"/>
+    <circle cx="33" cy="45" r="1.5" fill="#6a3a18"/>
+    <circle cx="40" cy="44" r="1.6" fill="#6a3a18"/>
+    <circle cx="47" cy="45" r="1.5" fill="#6a3a18"/>
+    <circle cx="36" cy="49" r="1.4" fill="#6a3a18"/>
+    <circle cx="44" cy="49" r="1.4" fill="#6a3a18"/>
+    <circle cx="40" cy="51" r="1.4" fill="#6a3a18"/>
+    <!-- Specular highlight -->
+    <ellipse cx="34" cy="38" rx="4" ry="3" fill="white" opacity="0.2"/>
+  </symbol>
+
+  <!-- 🌼 DAISY -->
+  <symbol id="svg-daisy" viewBox="0 0 80 100" overflow="visible">
+    <!-- Stem -->
+    <line x1="40" y1="72" x2="40" y2="100" stroke="url(#g-stem)" stroke-width="4" stroke-linecap="round"/>
+    <!-- Leaf -->
+    <ellipse cx="30" cy="88" rx="12" ry="5" fill="url(#g-leaf)" transform="rotate(-30 30 88)"/>
+    <!-- Back petals -->
+    <g filter="url(#f-shadow)" opacity="0.8">
+      <ellipse cx="40" cy="22" rx="6" ry="18" fill="url(#g-daisy-petal)" transform="rotate(15  40 44)"/>
+      <ellipse cx="40" cy="22" rx="6" ry="18" fill="url(#g-daisy-petal)" transform="rotate(75  40 44)"/>
+      <ellipse cx="40" cy="22" rx="6" ry="18" fill="url(#g-daisy-petal)" transform="rotate(135 40 44)"/>
+    </g>
+    <!-- Front petals -->
+    <ellipse cx="40" cy="22" rx="5.5" ry="17" fill="url(#g-daisy-petal)" transform="rotate(0   40 44)"/>
+    <ellipse cx="40" cy="22" rx="5.5" ry="17" fill="url(#g-daisy-petal)" transform="rotate(30  40 44)"/>
+    <ellipse cx="40" cy="22" rx="5.5" ry="17" fill="url(#g-daisy-petal)" transform="rotate(45  40 44)"/>
+    <ellipse cx="40" cy="22" rx="5.5" ry="17" fill="url(#g-daisy-petal)" transform="rotate(60  40 44)"/>
+    <ellipse cx="40" cy="22" rx="5.5" ry="17" fill="url(#g-daisy-petal)" transform="rotate(90  40 44)"/>
+    <ellipse cx="40" cy="22" rx="5.5" ry="17" fill="url(#g-daisy-petal)" transform="rotate(105 40 44)"/>
+    <ellipse cx="40" cy="22" rx="5.5" ry="17" fill="url(#g-daisy-petal)" transform="rotate(120 40 44)"/>
+    <ellipse cx="40" cy="22" rx="5.5" ry="17" fill="url(#g-daisy-petal)" transform="rotate(150 40 44)"/>
+    <ellipse cx="40" cy="22" rx="5.5" ry="17" fill="url(#g-daisy-petal)" transform="rotate(165 40 44)"/>
+    <!-- Center -->
+    <circle cx="40" cy="44" r="12" fill="url(#g-daisy-center)" filter="url(#f-shadow-sm)"/>
+    <!-- Center bumps -->
+    <circle cx="36" cy="41" r="2" fill="#d4a010" opacity="0.6"/>
+    <circle cx="40" cy="40" r="2" fill="#d4a010" opacity="0.6"/>
+    <circle cx="44" cy="41" r="2" fill="#d4a010" opacity="0.6"/>
+    <circle cx="38" cy="46" r="2" fill="#d4a010" opacity="0.6"/>
+    <circle cx="42" cy="46" r="2" fill="#d4a010" opacity="0.6"/>
+    <!-- Specular -->
+    <ellipse cx="35" cy="40" rx="3.5" ry="2.5" fill="white" opacity="0.35"/>
+  </symbol>
+
+  <!-- 🌸 LILY -->
+  <symbol id="svg-lily" viewBox="0 0 80 100" overflow="visible">
+    <!-- Stem -->
+    <line x1="40" y1="74" x2="40" y2="100" stroke="url(#g-stem)" stroke-width="4" stroke-linecap="round"/>
+    <!-- Leaves -->
+    <path d="M40 88 Q26 78 24 66" stroke="url(#g-leaf)" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <!-- Back petals -->
+    <g filter="url(#f-shadow)" opacity="0.85">
+      <path d="M40 54 Q16 52 14 40 Q14 26 40 20 Z" fill="url(#g-lily-petal2)" transform="rotate(120 40 45)"/>
+      <path d="M40 54 Q16 52 14 40 Q14 26 40 20 Z" fill="url(#g-lily-petal2)" transform="rotate(240 40 45)"/>
+    </g>
+    <!-- Side petals -->
+    <path d="M40 52 Q16 50 14 38 Q14 24 40 20 Z" fill="url(#g-lily-petal)"  transform="rotate(60  40 45)"/>
+    <path d="M40 52 Q16 50 14 38 Q14 24 40 20 Z" fill="url(#g-lily-petal)"  transform="rotate(300 40 45)"/>
+    <!-- Front petals -->
+    <path d="M40 52 Q16 50 14 38 Q14 24 40 20 Z" fill="url(#g-lily-petal2)" transform="rotate(0   40 45)"/>
+    <path d="M40 52 Q16 50 14 38 Q14 24 40 20 Z" fill="url(#g-lily-petal)"  transform="rotate(180 40 45)"/>
+    <!-- Spots on petals -->
+    <circle cx="28" cy="36" r="2.2" fill="#d04060" opacity="0.6"/>
+    <circle cx="52" cy="36" r="2.2" fill="#d04060" opacity="0.6"/>
+    <circle cx="40" cy="28" r="2"   fill="#d04060" opacity="0.55"/>
+    <circle cx="33" cy="30" r="1.6" fill="#d04060" opacity="0.5"/>
+    <circle cx="47" cy="30" r="1.6" fill="#d04060" opacity="0.5"/>
+    <!-- Center + stamens -->
+    <circle cx="40" cy="45" r="5" fill="url(#g-lily-center)"/>
+    <line x1="40" y1="44" x2="34" y2="32" stroke="#9aaa20" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="40" y1="44" x2="46" y2="32" stroke="#9aaa20" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="40" y1="44" x2="40" y2="30" stroke="#9aaa20" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="40" y1="44" x2="32" y2="35" stroke="#9aaa20" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="40" y1="44" x2="48" y2="35" stroke="#9aaa20" stroke-width="1.2" stroke-linecap="round"/>
+    <circle cx="34" cy="32" r="2.5" fill="#f4c040"/>
+    <circle cx="46" cy="32" r="2.5" fill="#f4c040"/>
+    <circle cx="40" cy="30" r="2.5" fill="#f4c040"/>
+    <circle cx="32" cy="35" r="2"   fill="#f4c040"/>
+    <circle cx="48" cy="35" r="2"   fill="#f4c040"/>
+    <!-- Specular -->
+    <ellipse cx="36" cy="42" rx="2.5" ry="1.5" fill="white" opacity="0.4"/>
+  </symbol>
+
+  <!-- 🌸 CHERRY BLOSSOM -->
+  <symbol id="svg-cherry" viewBox="0 0 80 100" overflow="visible">
+    <!-- Branch -->
+    <path d="M40 72 Q30 65 26 54" stroke="#8b5a2a" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M40 72 Q50 65 54 54" stroke="#8b5a2a" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+    <path d="M40 72 Q40 60 40 100" stroke="#8b5a2a" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <!-- Left blossom -->
+    <g transform="translate(23 48) scale(0.72)" filter="url(#f-shadow-sm)">
+      <path d="M10,0 C14,-8 22,-8 22,-2 C28,-6 34,0 30,6 C36,8 36,16 30,16 C32,22 26,26 22,22 C18,26 12,22 14,16 C8,16 8,8 14,6 C10,0 10,0 10,0Z" fill="url(#g-cherry-petal)" transform="translate(-22,-10)"/>
+    </g>
+    <!-- Main blossom (5 petals) -->
+    <g filter="url(#f-shadow)">
+      <!-- Petal 1 top -->
+      <path d="M40 44 Q32 32 40 26 Q48 32 40 44Z" fill="url(#g-cherry-petal)" transform="rotate(0   40 44)"/>
+      <path d="M40 44 Q32 32 40 26 Q48 32 40 44Z" fill="url(#g-cherry-petal)" transform="rotate(72  40 44)"/>
+      <path d="M40 44 Q32 32 40 26 Q48 32 40 44Z" fill="url(#g-cherry-petal)" transform="rotate(144 40 44)"/>
+      <path d="M40 44 Q32 32 40 26 Q48 32 40 44Z" fill="url(#g-cherry-petal)" transform="rotate(216 40 44)"/>
+      <path d="M40 44 Q32 32 40 26 Q48 32 40 44Z" fill="url(#g-cherry-petal)" transform="rotate(288 40 44)"/>
+    </g>
+    <!-- Petal notch highlights -->
+    <ellipse cx="40" cy="27" rx="3" ry="2" fill="white" opacity="0.4"/>
+    <!-- Center -->
+    <circle cx="40" cy="44" r="5.5" fill="url(#g-cherry-center)"/>
+    <!-- Stamens -->
+    <line x1="40" y1="43" x2="37" y2="37" stroke="#e84060" stroke-width="1" stroke-linecap="round"/>
+    <line x1="40" y1="43" x2="40" y2="36" stroke="#e84060" stroke-width="1" stroke-linecap="round"/>
+    <line x1="40" y1="43" x2="43" y2="37" stroke="#e84060" stroke-width="1" stroke-linecap="round"/>
+    <line x1="40" y1="43" x2="36" y2="38" stroke="#e84060" stroke-width="0.8" stroke-linecap="round"/>
+    <line x1="40" y1="43" x2="44" y2="38" stroke="#e84060" stroke-width="0.8" stroke-linecap="round"/>
+    <circle cx="37" cy="37" r="1.8" fill="#f8a0b0"/>
+    <circle cx="40" cy="36" r="1.8" fill="#f8a0b0"/>
+    <circle cx="43" cy="37" r="1.8" fill="#f8a0b0"/>
+    <circle cx="36" cy="38" r="1.4" fill="#f8a0b0"/>
+    <circle cx="44" cy="38" r="1.4" fill="#f8a0b0"/>
+    <!-- Specular -->
+    <ellipse cx="37" cy="42" rx="2" ry="1.5" fill="white" opacity="0.45"/>
+  </symbol>
+
+  <!-- 💜 LAVENDER -->
+  <symbol id="svg-lavender" viewBox="0 0 80 100" overflow="visible">
+    <!-- Stem -->
+    <path d="M40 78 Q38 60 40 20" stroke="url(#g-lav-stem)" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <!-- Side leaves -->
+    <ellipse cx="32" cy="82" rx="10" ry="4" fill="url(#g-leaf)" transform="rotate(-25 32 82)"/>
+    <ellipse cx="48" cy="78" rx="9" ry="3.5" fill="url(#g-leaf)" transform="rotate(25 48 78)"/>
+    <ellipse cx="33" cy="70" rx="8" ry="3.5" fill="url(#g-leaf)" transform="rotate(-20 33 70)"/>
+    <ellipse cx="47" cy="66" rx="7" ry="3" fill="url(#g-leaf)" transform="rotate(20 47 66)"/>
+    <!-- Florets (back) -->
+    <g opacity="0.75">
+      <ellipse cx="36" cy="62" rx="5" ry="7" fill="url(#g-lav-floret2)" transform="rotate(-5 36 62)"/>
+      <ellipse cx="44" cy="58" rx="5" ry="7" fill="url(#g-lav-floret2)" transform="rotate(5 44 58)"/>
+      <ellipse cx="36" cy="48" rx="5" ry="7" fill="url(#g-lav-floret2)" transform="rotate(-5 36 48)"/>
+      <ellipse cx="44" cy="44" rx="5" ry="7" fill="url(#g-lav-floret2)" transform="rotate(5 44 44)"/>
+      <ellipse cx="37" cy="34" rx="4.5" ry="6.5" fill="url(#g-lav-floret2)" transform="rotate(-3 37 34)"/>
+      <ellipse cx="43" cy="30" rx="4.5" ry="6.5" fill="url(#g-lav-floret2)" transform="rotate(3 43 30)"/>
+    </g>
+    <!-- Florets (front, brighter) -->
+    <ellipse cx="37" cy="65" rx="5.5" ry="7.5" fill="url(#g-lav-floret)" transform="rotate(-8 37 65)"/>
+    <ellipse cx="43" cy="61" rx="5.5" ry="7.5" fill="url(#g-lav-floret)" transform="rotate(8 43 61)"/>
+    <ellipse cx="37" cy="51" rx="5" ry="7" fill="url(#g-lav-floret)" transform="rotate(-6 37 51)"/>
+    <ellipse cx="43" cy="47" rx="5" ry="7" fill="url(#g-lav-floret)" transform="rotate(6 43 47)"/>
+    <ellipse cx="38" cy="37" rx="4.5" ry="6.5" fill="url(#g-lav-floret)" transform="rotate(-4 38 37)"/>
+    <ellipse cx="42" cy="33" rx="4.5" ry="6.5" fill="url(#g-lav-floret)" transform="rotate(4 42 33)"/>
+    <!-- Tips -->
+    <ellipse cx="39" cy="24" rx="4" ry="6" fill="url(#g-lav-floret)"/>
+    <ellipse cx="39" cy="20" rx="3" ry="4" fill="#d8a8f0"/>
+    <!-- Highlights -->
+    <ellipse cx="35" cy="63" rx="2" ry="3" fill="white" opacity="0.2"/>
+    <ellipse cx="35" cy="49" rx="2" ry="3" fill="white" opacity="0.2"/>
+  </symbol>
+
+  <!-- 🌺 PEONY -->
+  <symbol id="svg-peony" viewBox="0 0 80 100" overflow="visible">
+    <!-- Stem -->
+    <line x1="40" y1="76" x2="40" y2="100" stroke="url(#g-stem)" stroke-width="4" stroke-linecap="round"/>
+    <!-- Leaves -->
+    <ellipse cx="28" cy="88" rx="14" ry="6" fill="url(#g-leaf)" transform="rotate(-30 28 88)"/>
+    <ellipse cx="52" cy="84" rx="12" ry="5" fill="url(#g-leaf)" transform="rotate(25 52 84)"/>
+    <!-- Outer petal ring -->
+    <g filter="url(#f-shadow)">
+      <ellipse cx="40" cy="50" rx="34" ry="28" fill="url(#g-peony-outer)"/>
+      <ellipse cx="18" cy="44" rx="20" ry="24" fill="url(#g-peony-outer)" transform="rotate(-25 18 44)"/>
+      <ellipse cx="62" cy="44" rx="20" ry="24" fill="url(#g-peony-outer)" transform="rotate(25 62 44)"/>
+      <ellipse cx="40" cy="24" rx="22" ry="18" fill="url(#g-peony-outer)" opacity="0.8"/>
+    </g>
+    <!-- Mid petal ring -->
+    <ellipse cx="40" cy="48" rx="28" ry="24" fill="url(#g-peony-mid)"/>
+    <ellipse cx="24" cy="42" rx="18" ry="20" fill="url(#g-peony-mid)" transform="rotate(-20 24 42)"/>
+    <ellipse cx="56" cy="42" rx="18" ry="20" fill="url(#g-peony-mid)" transform="rotate(20 56 42)"/>
+    <ellipse cx="40" cy="28" rx="20" ry="16" fill="url(#g-peony-mid)"/>
+    <!-- Inner petal ring -->
+    <ellipse cx="40" cy="46" rx="22" ry="19" fill="url(#g-peony-inner)"/>
+    <ellipse cx="30" cy="40" rx="16" ry="17" fill="url(#g-peony-inner)" transform="rotate(-15 30 40)"/>
+    <ellipse cx="50" cy="40" rx="16" ry="17" fill="url(#g-peony-inner)" transform="rotate(15 50 40)"/>
+    <ellipse cx="40" cy="32" rx="18" ry="14" fill="url(#g-peony-inner)"/>
+    <!-- Inner petals -->
+    <ellipse cx="40" cy="42" rx="16" ry="14" fill="url(#g-peony-mid)" opacity="0.9"/>
+    <ellipse cx="34" cy="37" rx="11" ry="12" fill="url(#g-peony-inner)" transform="rotate(-10 34 37)"/>
+    <ellipse cx="46" cy="37" rx="11" ry="12" fill="url(#g-peony-inner)" transform="rotate(10 46 37)"/>
+    <!-- Center -->
+    <ellipse cx="40" cy="38" rx="12" ry="10" fill="url(#g-peony-center)"/>
+    <ellipse cx="40" cy="36" rx="8" ry="7" fill="#fff8fa"/>
+    <circle cx="40" cy="35" r="5" fill="white"/>
+    <!-- Center details -->
+    <circle cx="38" cy="34" r="2" fill="#f8d0e0"/>
+    <circle cx="42" cy="34" r="2" fill="#f8d0e0"/>
+    <circle cx="40" cy="32" r="1.8" fill="#f8d0e0"/>
+    <!-- Specular -->
+    <ellipse cx="35" cy="32" rx="4" ry="3" fill="white" opacity="0.55"/>
+    <ellipse cx="36" cy="33" rx="2" ry="1.5" fill="white" opacity="0.7"/>
+  </symbol>
+
+</defs>
+</svg>
+
+
+<!-- ══════════════════════════════════════════════════════
+     BUILDER
+══════════════════════════════════════════════════════ -->
+<section id="builder">
+
+  <header class="builder-header">
+    <div class="header-eyebrow">✦ handcrafted with love</div>
+    <h1>Build a Bouquet</h1>
+    <p class="header-sub">Pick your blooms, write a note, share the link — she'll see it bloom.</p>
+  </header>
+
+  <div class="builder-layout">
+
+    <!-- Left: Flower palette -->
+    <div class="palette-col">
+      <div class="col-label">
+        <span class="col-label-line"></span>
+        <span>Choose your flowers</span>
+        <span class="col-label-line"></span>
+      </div>
+      <div class="flower-grid" id="flowerGrid"></div>
+      <p class="count-hint">
+        <span class="count-bar-wrap"><span class="count-bar" id="countBar"></span></span>
+        <span id="totalCount">0</span> / 15 flowers
+      </p>
+    </div>
+
+    <!-- Right: Preview + controls -->
+    <div class="preview-col">
+
+      <!-- Bouquet preview -->
+      <div class="preview-card">
+        <div class="col-label small">
+          <span class="col-label-line"></span>
+          <span>Your bouquet</span>
+          <span class="col-label-line"></span>
+        </div>
+        <div class="mini-stage" id="miniStage">
+          <div class="mini-empty" id="miniEmpty">
+            <svg width="48" height="60"><use href="#svg-daisy"/></svg>
+            <span>Start adding flowers…</span>
+          </div>
+          <div class="mini-bouquet-wrap" id="miniBouquet" style="display:none">
+            <div class="mini-3d-container" id="mini3dContainer">
+              <div class="mini-flowers" id="miniFlowers"></div>
+              <div class="mini-wrap">
+                <div class="mini-wrap-paper"></div>
+                <div class="mini-ribbon"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message -->
+      <div class="message-card">
+        <div class="col-label small">
+          <span class="col-label-line"></span>
+          <span>Add a message <em>(optional)</em></span>
+          <span class="col-label-line"></span>
+        </div>
+        <textarea id="messageInput" maxlength="220" placeholder="Write something sweet…"></textarea>
+        <div class="char-count"><span id="charCount">0</span> / 220</div>
+      </div>
+
+      <!-- Actions -->
+      <div class="action-row">
+        <button class="btn-outline" id="previewBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Preview
+        </button>
+        <button class="btn-primary" id="generateBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+          Copy Link
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     VIEWER
+══════════════════════════════════════════════════════ -->
+<section id="viewer" style="display:none">
+  <canvas id="petalCanvas"></canvas>
+
+  <div class="viewer-scene">
+    <!-- The 3D bouquet -->
+    <div class="bouquet-3d-wrapper" id="bouquet3dWrapper">
+      <div class="bouquet-perspective">
+        <div class="bouquet-tilt" id="bouquetTilt">
+          <!-- Flowers go here -->
+          <div class="vflowers" id="vFlowers"></div>
+        </div>
+      </div>
+      <!-- Wrap -->
+      <div class="vwrap" id="vWrap">
+        <div class="vwrap-paper">
+          <div class="vwrap-fold"></div>
+          <div class="vwrap-pattern"></div>
+        </div>
+        <div class="vwrap-ribbon">
+          <div class="vribbon-left"></div>
+          <div class="vribbon-right"></div>
+        </div>
+        <div class="vbow">
+          <div class="vbow-loop vbow-loop-l"></div>
+          <div class="vbow-loop vbow-loop-r"></div>
+          <div class="vbow-knot"></div>
+          <div class="vbow-tail vbow-tail-l"></div>
+          <div class="vbow-tail vbow-tail-r"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message -->
+    <div class="viewer-message-wrap" id="viewerMessageWrap">
+      <div class="viewer-message" id="viewerMessage"></div>
+      <div class="viewer-from">with love ♡</div>
+    </div>
+  </div>
+
+  <button class="back-btn" id="backBtn">← build your own</button>
+</section>
+
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="script.js?v=3"></script>
+</body>
+</html>
